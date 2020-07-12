@@ -5,11 +5,11 @@ app.use(express.json());
 // app.use(express.state('public'));
 
 app.locals.comments = [
-  { id: 1, author: "ken", movie_id: 3, comment: "jumping fucking jesus"},
-  { id: 2, author: "ken", movie_id: 3, comment: "jumping fucking jesu"},
-  { id: 3, author: "ken", movie_id: 3, comment: "jumping fucking jes"},
-  { id: 4, author: "ken", movie_id: 3, comment: "jumping fucking j"},
-  { id: 5, author: "ken", movie_id: 5, comment: "jumping fucking"},
+  { id: 1, author: "ken", movie_id: 3, comment: "jumping jesus"},
+  { id: 2, author: "ken", movie_id: 3, comment: "jumping jesu"},
+  { id: 3, author: "ken", movie_id: 3, comment: "jumping jes"},
+  { id: 4, author: "ken", movie_id: 3, comment: "jumping j"},
+  { id: 5, author: "ken", movie_id: 5, comment: "jumping"},
 ]
 
 app.locals.favoriteMovies = [
