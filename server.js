@@ -65,9 +65,6 @@ app.get('/api/v1/favoriteMovies/:id', (request, response) => {
   response.status(200).json(foundUserFavorites)
 })
 
-app.listen(app.get('port'), () => {
-  console.log(`App is now listening on port ${app.get('port')}!`)
-});
 
 app.post('/api/v1/favoriteMovies', (request, response) => {
   const { userId ,movieId } = request.body; 
@@ -82,3 +79,6 @@ app.post('/api/v1/favoriteMovies', (request, response) => {
   response.status(201).json({ userId, movieId });
 })
 
+app.listen(app.get('port'), () => {
+  console.log(`App is now listening on port ${app.get('port')}!`)
+});
