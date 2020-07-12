@@ -56,6 +56,29 @@ app.post('/api/v1/comments', (request, response) => {
   response.status(201).json({ id, author, movieId, comment });
 })
 
+app.get('/api/v1/favoriteMovies/:id', (request, response) => {
+  const userId = parseInt(request.params.id);
+  const foundUserFavorites = app.locals.favoriteMovies.filter(favoriteMovie => favoriteMovie.user_id === userId)
+  if(!foundUserFavorites) {
+    response.status(404).send(`Sorry, no user favorite found with an id of ${request.params.id}`)
+  }
+  response.status(200).json(foundUserFavorites)
+})
+
 app.listen(app.get('port'), () => {
   console.log(`App is now listening on port ${app.get('port')}!`)
 });
+
+app.post('/api/v1/favoriteMovies', (request, response) => {
+  const { userId ,movieId } = request.body; 
+  for (let requiredParameter of ['userId', 'movieId']) {
+    if (!request.body[requiredParameter]) {
+      response.status(422).json({
+        error: `Expected format: { userId: <number>, movieId: <number>}. Missing a required parameter of ${requiredParameter}!`
+      })
+    }
+  }
+  app.locals.favoriteMovies.push({ user_id: userId, movie_id: movieId });
+  response.status(201).json({ userId, movieId });
+})
+
