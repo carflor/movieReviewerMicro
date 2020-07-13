@@ -1,14 +1,16 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const { uuid } = require('uuidv4');
 app.use(express.json()); 
+app.use(cors());
 // app.use(express.state('public'));
 
 app.locals.comments = [
-  { id: 1, author: "ken", movie_id: 3, comment: "jumping jesus"},
-  { id: 2, author: "ken", movie_id: 3, comment: "jumping jesu"},
-  { id: 3, author: "ken", movie_id: 3, comment: "jumping jes"},
-  { id: 4, author: "ken", movie_id: 3, comment: "jumping j"},
+  { id: 1, author: "ken", movie_id: 338762, comment: "jumping jesus"},
+  { id: 2, author: "ken", movie_id: 338762, comment: "jumping jesu"},
+  { id: 3, author: "ken", movie_id: 338762, comment: "jumping jes"},
+  { id: 4, author: "ken", movie_id: 338762, comment: "jumping j"},
   { id: 5, author: "ken", movie_id: 5, comment: "jumping"},
 ]
 
@@ -32,6 +34,7 @@ app.get('/api/v1/comments', (request, response) => {
 app.get('/api/v1/favoriteMovies', (request, response) => {
   response.status(200).json(app.locals.favoriteMovies)
 })
+
 
 app.get('/api/v1/movies/:movie_id/comments', (request, response) => {
   const movieId = parseInt(request.params.movie_id);
@@ -65,9 +68,6 @@ app.get('/api/v1/favoriteMovies/:id', (request, response) => {
   response.status(200).json(foundUserFavorites)
 })
 
-app.listen(app.get('port'), () => {
-  console.log(`App is now listening on port ${app.get('port')}!`)
-});
 
 app.post('/api/v1/favoriteMovies', (request, response) => {
   const { userId ,movieId } = request.body; 
@@ -82,3 +82,6 @@ app.post('/api/v1/favoriteMovies', (request, response) => {
   response.status(201).json({ userId, movieId });
 })
 
+app.listen(app.get('port'), () => {
+  console.log(`App is now listening on port ${app.get('port')}!`)
+});
