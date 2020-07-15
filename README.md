@@ -6,7 +6,7 @@
 
 1. Clone down this repo
 
-2. Get into the repo by running```cd movieReviewerMicroservice``` in your terminal
+2. Get into the repo by running```cd movieReviewerMicro``` in your terminal
 
 3. Then install the library dependencies. Run:
 
