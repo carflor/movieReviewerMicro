@@ -15,10 +15,10 @@ app.locals.comments = [
 ]
 
 app.locals.favoriteMovies = [
-  {user_id: 59, movie_id: 1},
-  {user_id: 59, movie_id: 2},
-  {user_id: 59, movie_id: 3},
-  {user_id: 59, movie_id: 4},
+  {user_id: 59, movie_id: 475430},
+  {user_id: 59, movie_id: 338762},
+  {user_id: 59, movie_id: 508439},
+  {user_id: 59, movie_id: 603},
 ]
 
 app.set('port', process.env.PORT || 3001);
@@ -39,7 +39,7 @@ app.get('/api/v1/favoriteMovies', (request, response) => {
 app.get('/api/v1/movies/:movie_id/comments', (request, response) => {
   const movieId = parseInt(request.params.movie_id);
   const foundComments = app.locals.comments.filter(comment => comment.movie_id === movieId)
-  if(foundComments.length === 0) {
+  if(!foundComments) {
     response.status(404).send(`Sorry, no comment found with an id of ${parseInt(request.params.movie_id)}`)
   }
   response.status(200).json(foundComments)
@@ -70,7 +70,7 @@ app.get('/api/v1/favoriteMovies/:id', (request, response) => {
 
 
 app.post('/api/v1/favoriteMovies', (request, response) => {
-  const { userId ,movieId } = request.body; 
+  const { userId , movieId } = request.body; 
   for (let requiredParameter of ['userId', 'movieId']) {
     if (!request.body[requiredParameter]) {
       response.status(422).json({
@@ -78,10 +78,24 @@ app.post('/api/v1/favoriteMovies', (request, response) => {
       })
     }
   }
-  app.locals.favoriteMovies.push({ user_id: userId, movie_id: movieId });
+  const findFavorite = app.locals.favoriteMovies.find(film => film.movie_id === movieId && film.user_id === userId)
+  if(findFavorite === undefined) {
+    app.locals.favoriteMovies.push({ user_id: userId, movie_id: movieId });
+  }
+ const favoritesCopy = [...app.locals.favoriteMovies]
+  const newFavorites = favoritesCopy.reduce((favorites, film) => {
+    if (film !== findFavorite) {
+      favorites.push(film)
+    }
+    return favorites
+  }, [])
+  
+  app.locals.favoriteMovies = newFavorites
   response.status(201).json({ userId, movieId });
 })
+
 
 app.listen(app.get('port'), () => {
   console.log(`App is now listening on port ${app.get('port')}!`)
 });
+
