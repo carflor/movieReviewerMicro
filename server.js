@@ -7,11 +7,11 @@ app.use(cors());
 // app.use(express.state('public'));
 
 app.locals.comments = [
-  { id: 1, author: "ken", movie_id: 338762, comment: "jumping jesus"},
-  { id: 2, author: "ken", movie_id: 338762, comment: "jumping jesu"},
-  { id: 3, author: "ken", movie_id: 338762, comment: "jumping jes"},
-  { id: 4, author: "ken", movie_id: 338762, comment: "jumping j"},
-  { id: 5, author: "ken", movie_id: 5, comment: "jumping"},
+  { id: 1, author: "alberto", movie_id: 338762, comment: "Jumping street car! Look at those action scenes!"},
+  { id: 2, author: "mike", movie_id: 475430, comment: "Conceptually amazing, it could almost be a book!"},
+  { id: 3, author: "karen", movie_id: 338762, comment: "I've seen better. "},
+  { id: 4, author: "juana", movie_id: 508439, comment: "A cartoon adventure good for the whole family, even your pets!"},
+  { id: 5, author: "lisa", movie_id: 508439, comment: "5 genres in one movie, what a whirlwind!"},
 ]
 
 app.locals.favoriteMovies = [
